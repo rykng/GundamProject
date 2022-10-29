@@ -7,7 +7,7 @@ class GundamNameGenerator(object):
 
 
 	@classmethod
-	def get_randam_pilot_name(cls) -> list:
+	def get_randam_pilot_name(cls) -> str:
 		outcome:str = random.choice(cls.PILOTS)
 		return outcome
 
