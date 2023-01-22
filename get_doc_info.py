@@ -38,17 +38,8 @@ def get_page_object(path):
         return page
 
 
-
-if __name__ == '__main__':
-    path = 'forms/fw9.pdf'
-    output = 'output/fw9_filled.pdf'
-
-    data_fw9 = {'f1_1[0]': "Cheese head", 'f1_2[0]': "haha", 'f1_3[0]': "ho ho ho" }
-
-
-    get_info(path)
-
-    reader = PdfReader(path)
+def write_data_to_output(reader_path, output, data):
+    reader = PdfReader(reader_path)
     writer = PdfWriter()
 
     page = reader.pages[0]
@@ -57,9 +48,21 @@ if __name__ == '__main__':
 
     writer.add_page(page)
     writer.update_page_form_field_values(
-        writer.pages[0], data_fw9
+        writer.pages[0], data
     )
 
     # write "output" to PyPDF2-output.pdf
     with open(output, "wb") as output_stream:
         writer.write(output_stream)
+        print(f"finish writing data to {output}")
+
+
+if __name__ == '__main__':
+    path = 'forms/fw9.pdf'
+    output = 'output/fw9_filled.pdf'
+
+    data_fw9 = {'f1_1[0]': "Aaron Rodgers", 'f1_2[0]': "Green Bay Packers", 'f1_3[0]': "P" }
+
+    get_info(path)
+    write_data_to_output(path, output,data_fw9)
+
