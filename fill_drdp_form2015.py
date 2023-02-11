@@ -18,6 +18,8 @@ from PyPDF2.generic import (
     encode_pdfdocencoding,
 )
 
+# https://stackoverflow.com/questions/47288578/pdf-form-filled-with-pypdf2-does-not-show-in-print
+
 
 filename = "forms/DRDP2015_P16.pdf"
 output = "output/DRDP2015_P16_filled.pdf"
