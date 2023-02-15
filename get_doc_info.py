@@ -1,4 +1,6 @@
 from PyPDF2 import PdfReader, PdfWriter
+from PyPDF2.generic import NameObject
+
 
 
 def get_info(path):
@@ -44,12 +46,20 @@ def write_data_to_output(reader_path, output, data):
 
     page = reader.pages[0]
     fields = reader.get_form_text_fields()
-    print(f"form fields => {fields}")
+    #print(f"form fields => {fields}")
+
+    fields_checkbox = reader.get_fields()
+    print(f"form with checkbox => {fields_checkbox}")
 
     writer.add_page(page)
     writer.update_page_form_field_values(
         writer.pages[0], data
     )
+
+    cbox1 = fields_checkbox.get("c1_1[0]")
+    cbox2 = fields_checkbox.get("c1_2[0]")
+    print(f"Type => {type(cbox1)} ")
+    print(f"object => {cbox1} ")
 
     # write "output" to PyPDF2-output.pdf
     with open(output, "wb") as output_stream:
@@ -61,7 +71,7 @@ if __name__ == '__main__':
     path = 'forms/fw9.pdf'
     output = 'output/fw9_filled.pdf'
 
-    data_fw9 = {'f1_1[0]': "Aaron Rodgers", 'f1_2[0]': "Green Bay Packers", 'f1_3[0]': "P" }
+    data_fw9 = {'f1_1[0]': "Aaron Rodgers", 'f1_2[0]': "Green Bay Packers", 'f1_3[0]': "P" , 'f1_4[0]': "dude"}
 
     get_info(path)
     write_data_to_output(path, output,data_fw9)
